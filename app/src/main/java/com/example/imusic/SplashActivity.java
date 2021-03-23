@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.imusic.util.SpUtils;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -24,8 +26,14 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (SpUtils.getGuideInfo(SplashActivity.this)) {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+                    startActivity(intent);
+                }
+
                 SplashActivity.this.finish();
             }
         }, 2000);

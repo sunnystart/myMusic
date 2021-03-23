@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IMusic">
-        <activity android:name=".GuideActivity"></activity>
+        <activity android:name=".GuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreen"></activity>
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
