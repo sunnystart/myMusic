@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuideActivity extends AppCompatActivity {
-    private final int[] layoutIds = {R.layout.activity_page1, R.layout.activity_page2, R.layout.activity_page3};
-    private List<View> guidePages = new ArrayList<>();
+    private final int[] guideImgIds = {R.drawable.guide1, R.drawable.guide2, R.drawable.guide3};
+    private final List<View> guidePages = new ArrayList<>();
     private ViewPager viewPager;
     private ImageView[] mDotView;
     private ViewPager.OnPageChangeListener mPageChangeListener;
@@ -38,14 +38,17 @@ public class GuideActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        for (int layoutId:layoutIds) {
-            guidePages.add(getLayoutInflater().inflate(layoutId, null));
+        for (int imgId : guideImgIds) {
+            View view = getLayoutInflater().inflate(R.layout.activity_page, null);
+            ImageView imgView = view.findViewById(R.id.image);
+            imgView.setImageResource(imgId);
+            guidePages.add(view);
         }
         viewPager = findViewById(R.id.view_pager);
         PagerAdapter pagerAdapter = new PagerAdapter() {
             @Override
             public int getCount() {
-                return layoutIds.length;
+                return guideImgIds.length;
             }
 
             @Override
@@ -73,7 +76,7 @@ public class GuideActivity extends AppCompatActivity {
         LinearLayout dotLayout =  findViewById(R.id.dot_layout);
         LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(20, 20);
         mParams.setMargins(10, 0, 10,0);
-        mDotView = new ImageView[layoutIds.length];
+        mDotView = new ImageView[guideImgIds.length];
         for(int i = 0; i < mDotView.length; i++)
         {
             ImageView imageView = new ImageView(this);
