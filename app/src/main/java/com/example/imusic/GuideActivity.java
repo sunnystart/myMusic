@@ -37,6 +37,9 @@ public class GuideActivity extends AppCompatActivity {
         initPageListener();
     }
 
+    /**
+     * 设置引导页viewPager
+     */
     private void initViewPager() {
         for (int imgId : guideImgIds) {
             View view = getLayoutInflater().inflate(R.layout.activity_page, null);
@@ -72,6 +75,9 @@ public class GuideActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
     }
 
+    /**
+     * 设置引导点
+     */
     private void initDotView() {
         LinearLayout dotLayout =  findViewById(R.id.dot_layout);
         LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(20, 20);
@@ -91,13 +97,15 @@ public class GuideActivity extends AppCompatActivity {
         skipBtn.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 设置引导页listener，用于控制在不同上按钮的展示状态
+     */
     private void initPageListener() {
         mPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 for(int i = 0; i < mDotView.length; i++)
@@ -122,15 +130,15 @@ public class GuideActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(mPageChangeListener);
     }
 
+    /**
+     * 设置按钮监听事件
+     */
     private void initBtn() {
         enterBtn = findViewById(R.id.enterBtn);
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GuideActivity.this, MainActivity.class);
-                startActivity(intent);
-                SpUtils.saveGuideInfo(GuideActivity.this);
-                GuideActivity.this.finish();
+                launchMainActivity();
             }
         });
 
@@ -138,12 +146,19 @@ public class GuideActivity extends AppCompatActivity {
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GuideActivity.this, MainActivity.class);
-                startActivity(intent);
-                SpUtils.saveGuideInfo(GuideActivity.this);
-                GuideActivity.this.finish();
+                launchMainActivity();
             }
         });
+    }
+
+    /**
+     * 按钮事件，拉起主页
+     */
+    private void launchMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        SpUtils.saveGuideInfo(this);
+        this.finish();
     }
 
     @Override
